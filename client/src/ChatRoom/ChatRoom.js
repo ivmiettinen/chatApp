@@ -49,7 +49,7 @@ const ChatRoom = (props) => {
                                             : 'received-message'
                                     }`}
                                 >
-                                   <strong>{props.username}:</strong> {message.body}
+                                   <strong>{message.username}:</strong> {message.body}
                                 </li>
                             ))}
                         </ol>

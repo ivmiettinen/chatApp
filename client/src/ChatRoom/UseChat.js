@@ -4,16 +4,17 @@ import socketIOClient from 'socket.io-client'
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 const SOCKET_SERVER_URL = 'http://localhost:3001'
 
-const UseChat = (roomId, username, confirmUsername) => {
+const UseChat = (roomId) => {
     const [messages, setMessages] = useState([]) // Sent and received messages
     const socketRef = useRef()
 
     useEffect(() => {
         // Creates a WebSocket connection
         socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
-            query: { roomId, username }
+            query: { roomId },
         })
 
+        console.log('Effect')
         // Listens for incoming messages
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
             const incomingMessage = {
@@ -28,13 +29,13 @@ const UseChat = (roomId, username, confirmUsername) => {
         return () => {
             socketRef.current.disconnect()
         }
-    }, [roomId, confirmUsername])
+    }, [roomId])
 
     // Sends a message to the server that
     // forwards it to all users in the same room
     const sendMessage = (username, messageBody) => {
         socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
-          username: username,
+            username: username,
             body: messageBody,
             senderId: socketRef.current.id,
         })

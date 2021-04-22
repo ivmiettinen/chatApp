@@ -3,12 +3,12 @@ const InputComponent = (props) => {
    
     return (
         <input
-            type='text'
+            type={props.type}
             placeholder={props.placeholder}
             value={props.value}
             required
             onChange={props.onChange}
-            className='text-input-field'
+            className={props.className}
         />
     )
 }

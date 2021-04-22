@@ -14,7 +14,8 @@ const UseChat = (roomId) => {
             query: { roomId },
         })
 
-        console.log('Effect')
+        // console.log('Effect')
+
         // Listens for incoming messages
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
             const incomingMessage = {

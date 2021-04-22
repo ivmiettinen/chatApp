@@ -2,11 +2,17 @@ import { useState } from 'react'
 
 import './ChatRoom.css'
 import UseChat from './UseChat'
-import InputComponent from '../Home/InputComponent'
+import InputComponent from '../elements/InputComponent'
+import ButtonComponent from '../elements/ButtonComponent'
 
 const ChatRoom = (props) => {
     const { roomId } = props.match.params // Gets roomId from URL
-    const { confirmUsername, handleConfirmUsername, handleUsernameChange, username} = props;
+    const {
+        confirmUsername,
+        handleConfirmUsername,
+        handleUsernameChange,
+        username,
+    } = props
     const { messages, sendMessage } = UseChat(roomId, username, confirmUsername) // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = useState('') // Message to be sent
 
@@ -24,16 +30,26 @@ const ChatRoom = (props) => {
     return (
         <>
             {username === '' || confirmUsername === false ? (
-                <div>
-                  <p>Please enter your username before entering the room <strong>{roomId}</strong></p>    
-                    <div>
+                <div className='chat-lounge-container'>
+                    <p>
+                        Please enter your username before entering the room{' '}
+                        <strong>{roomId}</strong>
+                    </p>
+                
                         <InputComponent
                             value={username}
                             onChange={handleUsernameChange}
                             placeholder='Name'
+                            className='text-input-field'
+                            type='text'
                         />
-                    </div>
-                    <button onClick={handleConfirmUsername}>Enter</button>
+                  
+                    <ButtonComponent
+                        className='enter-room-button'
+                        onClick={handleConfirmUsername}
+                    >
+                        Enter
+                    </ButtonComponent>
                 </div>
             ) : (
                 <div className='chat-room-container'>
@@ -49,7 +65,8 @@ const ChatRoom = (props) => {
                                             : 'received-message'
                                     }`}
                                 >
-                                   <strong>{message.username}:</strong> {message.body}
+                                    <strong>{message.username}:</strong>{' '}
+                                    {message.body}
                                 </li>
                             ))}
                         </ol>
@@ -60,12 +77,12 @@ const ChatRoom = (props) => {
                         placeholder='Write message...'
                         className='new-message-input-field'
                     />
-                    <button
+                    <ButtonComponent
                         onClick={handleSendMessage}
                         className='send-message-button'
                     >
                         Send
-                    </button>
+                    </ButtonComponent>
                 </div>
             )}{' '}
         </>

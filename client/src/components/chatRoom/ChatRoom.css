@@ -9,6 +9,17 @@
     margin: 16px;
 }
 
+.chat-lounge-container {
+    position: fixed;
+    left: 10%;
+    right: 10%;
+
+
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+}
+
 .room-name {
     margin-top: 0;
 }

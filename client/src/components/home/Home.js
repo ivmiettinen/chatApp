@@ -1,22 +1,16 @@
 import { useState } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom'
-import InputComponent from './InputComponent'
+import InputComponent from '../elements/InputComponent'
+import ButtonComponent from '../elements/ButtonComponent'
 
 import './Home.css'
 
 const Home = (props) => {
     const [roomName, setRoomName] = useState('')
 
-    // const handleUsernameChange = (event) => {
-    //     setUsername(event.target.value)
-    // }
-
     let history = useHistory()
 
     const addNewChatter = (e) => {
-        console.log('e', e)
-        console.log('e.target.value', e.target.value)
-
         e.preventDefault()
         if (roomName === '') {
             alert('Enter room name')
@@ -26,7 +20,6 @@ const Home = (props) => {
         } else {
             setRoomName(e.target.value)
             props.handleConfirmUsername(true)
-            // setUsername(e.target.value)
         }
         history.push(`/${roomName}`)
     }
@@ -37,30 +30,27 @@ const Home = (props) => {
 
     return (
         <div className='home-container'>
-            <label>
-                <InputComponent
-                    value={props.username}
-                    onChange={props.handleUsernameChange}
-                    placeholder='Name'
-                />
-            </label>
-            <label>
-                <input
-                    type='text'
-                    placeholder='Room'
-                    value={roomName}
-                    onChange={handleRoomNameChange}
-                    className='text-input-field'
-                />
-            </label>
-
-            <button
+            <InputComponent
+                type='text'
+                value={props.username}
+                onChange={props.handleUsernameChange}
+                placeholder='Name'
+                className='text-input-field'
+            />
+            <InputComponent
+                type='text'
+                value={roomName}
+                onChange={handleRoomNameChange}
+                placeholder='Room'
+                className='text-input-field'
+            />
+            <ButtonComponent
                 to={`/${roomName}`}
                 className='enter-room-button'
                 onClick={addNewChatter}
             >
                 Go
-            </button>
+            </ButtonComponent>
         </div>
     )
 }

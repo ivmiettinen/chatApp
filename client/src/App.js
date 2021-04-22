@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './index.css'
-import Home from './Home/Home'
-import ChatRoom from './ChatRoom/ChatRoom'
+import Home from './components/home/Home'
+import ChatRoom from './components/chatRoom/ChatRoom'
 
 function App() {
     const [username, setUsername] = useState('')

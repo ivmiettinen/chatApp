@@ -13,7 +13,7 @@ const ChatRoom = (props) => {
         handleUsernameChange,
         username,
     } = props
-    const { messages, sendMessage } = UseChat(roomId, username, confirmUsername) // Creates a websocket and manages messaging
+    const { messages, sendMessage } = UseChat(roomId) // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = useState('') // Message to be sent
 
     // console.log('NameComponent', NameComponent)

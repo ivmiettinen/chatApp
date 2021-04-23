@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, Redirect, useHistory } from 'react-router-dom'
+import {  useHistory } from 'react-router-dom'
 import InputComponent from '../elements/InputComponent'
 import ButtonComponent from '../elements/ButtonComponent'
 

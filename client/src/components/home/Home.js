@@ -11,13 +11,21 @@ const Home = (props) => {
     let history = useHistory()
 
     const addNewChatter = (e) => {
+        console.log('addNewChatter', addNewChatter)
+
         e.preventDefault()
         if (roomName === '') {
             alert('Enter room name')
             return
         } else if (props.username === '') {
             alert('Enter username ')
-        } else {
+        } 
+        else if (props.username.length < 5) {
+            alert('Username must be at least 5 long')
+            return
+        }
+        
+        else {
             setRoomName(e.target.value)
             props.handleConfirmUsername(true)
         }
@@ -25,6 +33,10 @@ const Home = (props) => {
     }
 
     const handleRoomNameChange = (event) => {
+        console.log('handleRoomNameChange', event)
+        if (props.username === '') {
+            alert('Enter username ')
+        }
         setRoomName(event.target.value)
     }
 

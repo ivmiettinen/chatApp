@@ -6,24 +6,56 @@ import InputComponent from '../elements/InputComponent'
 import ButtonComponent from '../elements/ButtonComponent'
 
 const ChatRoom = (props) => {
+    console.log('ChatRoom Props', props)
+
     const { roomId } = props.match.params // Gets roomId from URL
     const {
         confirmUsername,
         handleConfirmUsername,
         handleUsernameChange,
         username,
+        setConfirmUsername,
     } = props
     const { messages, sendMessage } = UseChat(roomId) // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = useState('') // Message to be sent
 
+    const { usernames, sendUsername } = UseChat(roomId)
     // console.log('NameComponent', NameComponent)
 
     const handleNewMessageChange = (event) => {
         setNewMessage(event.target.value)
     }
 
-    const handleSendMessage = () => {
+    const handleUsersWithLink = (e) => {
+        console.log('username.length11', username.length)
+        if (username === '') {
+            alert('Enter username')
+        } else if (username.length < 5) {
+            alert('Username must be at least 5 long')
+        } else {
+            setConfirmUsername(true)
+        }
+
+        sendUsername(username, `user ${username} joins the chat`)
+        // e.preventDefault()
+    }
+
+    const handleSendMessage = (e) => {
+        console.log('handleSendMessage', e)
+
+        console.log('username.length', username.length)
+        if (username === '') {
+            alert('Enter username')
+            return
+        } else if (username.length < 5) {
+            alert('Username must be at least 5 long')
+            return
+        } else {
+            setConfirmUsername(true)
+        }
+
         sendMessage(username, newMessage)
+
         setNewMessage('')
     }
 
@@ -35,18 +67,19 @@ const ChatRoom = (props) => {
                         Please enter your username before entering the room{' '}
                         <strong>{roomId}</strong>
                     </p>
-                
-                        <InputComponent
-                            value={username}
-                            onChange={handleUsernameChange}
-                            placeholder='Name'
-                            className='text-input-field'
-                            type='text'
-                        />
-                  
+
+                    <InputComponent
+                        value={username}
+                        onChange={handleUsernameChange}
+                        placeholder='Name'
+                        className='text-input-field'
+                        type='text'
+                    />
+
                     <ButtonComponent
                         className='enter-room-button'
-                        onClick={handleConfirmUsername}
+                        value={username}
+                        onClick={handleUsersWithLink}
                     >
                         Enter
                     </ButtonComponent>

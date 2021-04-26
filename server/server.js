@@ -8,7 +8,7 @@ const io = require('socket.io')(server, {
 const PORT = 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
-// const colorArray = ["blue", "yellow", "lightgreen", "orange"]
+const NEW_USERNAME = 'newUsername'
 
 const getRandomColor = () => {
     let letters = '0123456789ABCDEF'
@@ -23,6 +23,17 @@ let chatterArray = []
 
 io.on('connection', (socket) => {
     // Join a conversation
+
+
+    //On open, send names of chatters.
+
+    socket.onopen = () => {
+        socket.send(chatterArray);
+      };
+
+    // socket.emit('getChatterNames', chatterArray)
+
+
     const { roomId } = socket.handshake.query
     socket.join(roomId)
 
@@ -30,7 +41,7 @@ io.on('connection', (socket) => {
 
     console.log('getRandomColor', getRandomColor())
 
-    //klo13:21:
+    //
     const newChatter = {
         id: socket.id,
         color: getRandomColor(),
@@ -39,8 +50,20 @@ io.on('connection', (socket) => {
     chatterArray.push(newChatter)
     //
 
+
+    
+
+
     console.log('socket.handshake.query', socket.handshake.query)
     console.log('socket.handshake.query.roomId', socket.handshake.query.roomId)
+
+    //Listen for new userNames
+    socket.on(NEW_USERNAME, (data) => {
+        console.log('NEW_USERNAME', data)
+
+        io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data)
+    })
+
 
     // Listen for new messages
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
@@ -48,6 +71,8 @@ io.on('connection', (socket) => {
 
         io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data)
     })
+
+
 
     // Leave the room if the user closes the socket
     socket.on('disconnect', () => {

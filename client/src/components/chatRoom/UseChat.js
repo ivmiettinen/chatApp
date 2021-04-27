@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
+import chatServiceClient from '../../services/chatServiceClient'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
-const NEW_USERNAME = 'newUsername'
 const SOCKET_SERVER_URL = 'http://localhost:3001'
 
-const UseChat = (roomId) => {
+export const UseChat = (roomId) => {
     const [messages, setMessages] = useState([]) // Sent and received messages
-    const [usernames, setUsernames] = useState([])
     const socketRef = useRef()
 
     useEffect(() => {
@@ -16,23 +15,13 @@ const UseChat = (roomId) => {
             query: { roomId },
         })
 
-        // console.log('Effect')
-
         // Listens for incoming messages
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
-            
-            
             const incomingMessage = {
                 ...message,
                 ownedByCurrentUser: message.senderId === socketRef.current.id,
             }
             setMessages((messages) => [...messages, incomingMessage])
-        })
-
-        //Get usernames from backend:
-        socketRef.current.on('getChatterNames', (users) => {
-            console.log(users)
-            setUsernames(users)
         })
 
         // Destroys the socket reference
@@ -42,31 +31,32 @@ const UseChat = (roomId) => {
         }
     }, [roomId])
 
-
-    const sendUsername = (username, messageBody) => {
-        console.log('sendUsername', username)
-
-        socketRef.current.emit(NEW_USERNAME, {
-            
-            username: username,
-            body: messageBody,
-            senderId: socketRef.current.id,
-        })
-    }
     // Sends a message to the server that
     // forwards it to all users in the same room
     const sendMessage = (username, messageBody) => {
-        console.log('sendMessage', username)
-
         socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
-            
             username: username,
             body: messageBody,
             senderId: socketRef.current.id,
         })
     }
 
-    return { messages, usernames, sendUsername, sendMessage }
+    return { messages, sendMessage }
 }
 
-export default UseChat
+export const UseChatters = () => {
+    const [usernames, setUsernames] = useState([])
+
+    useEffect(() => {
+        chatServiceClient
+            .getAll()
+            .then((chatters) => {
+                setUsernames(chatters)
+            })
+            .catch((err) => {
+                console.log('error with get request', err)
+            })
+    }, [])
+
+    return usernames
+}

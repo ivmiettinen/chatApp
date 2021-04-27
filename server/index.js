@@ -1,4 +1,13 @@
-const server = require('http').createServer()
+const express = require('express')
+const app = express()
+
+const http = require('http')
+
+const cors = require('cors')
+
+app.use(cors())
+
+const server = http.createServer(app)
 const io = require('socket.io')(server, {
     cors: {
         origin: 'http://localhost:3000',
@@ -8,10 +17,14 @@ const io = require('socket.io')(server, {
 const PORT = 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
-const NEW_USERNAME = 'newUsername'
+let chatterArray = []
+
+app.get('/', (req, res) => {
+    res.json(chatterArray)
+})
 
 const getRandomColor = () => {
-    let letters = '0123456789ABCDEF'
+    const letters = '0123456789ABCDEF'
     let color = '#'
     for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)]
@@ -19,21 +32,8 @@ const getRandomColor = () => {
     return color
 }
 
-let chatterArray = []
-
 io.on('connection', (socket) => {
     // Join a conversation
-
-
-    //On open, send names of chatters.
-
-    socket.onopen = () => {
-        socket.send(chatterArray);
-      };
-
-    // socket.emit('getChatterNames', chatterArray)
-
-
     const { roomId } = socket.handshake.query
     socket.join(roomId)
 
@@ -41,29 +41,17 @@ io.on('connection', (socket) => {
 
     console.log('getRandomColor', getRandomColor())
 
-    //
     const newChatter = {
         id: socket.id,
         color: getRandomColor(),
     }
 
     chatterArray.push(newChatter)
-    //
 
+    console.log('chatterArray when after push', chatterArray)
 
-    
-
-
-    console.log('socket.handshake.query', socket.handshake.query)
+    // console.log('socket.handshake.query', socket.handshake.query)
     console.log('socket.handshake.query.roomId', socket.handshake.query.roomId)
-
-    //Listen for new userNames
-    socket.on(NEW_USERNAME, (data) => {
-        console.log('NEW_USERNAME', data)
-
-        io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data)
-    })
-
 
     // Listen for new messages
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
@@ -71,8 +59,6 @@ io.on('connection', (socket) => {
 
         io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data)
     })
-
-
 
     // Leave the room if the user closes the socket
     socket.on('disconnect', () => {

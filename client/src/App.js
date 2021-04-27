@@ -14,9 +14,10 @@ function App() {
     }
 
     const handleConfirmUsername = (e) => {
-        setConfirmUsername(true)
-        // e.preventDefault()
+      setConfirmUsername(true)
     }
+
+    
 
     return (
         <Router>
@@ -35,14 +36,7 @@ function App() {
                     exact
                     path='/:roomId'
                     render={(props) => (
-                        <ChatRoom
-                            {...props}
-                            username={username}
-                            handleUsernameChange={handleUsernameChange}
-                            confirmUsername={confirmUsername}
-                            handleConfirmUsername={handleConfirmUsername}
-                            setConfirmUsername={setConfirmUsername}
-                        />
+                        <ChatRoom {...props} username={username} handleUsernameChange={handleUsernameChange} confirmUsername={confirmUsername} handleConfirmUsername={handleConfirmUsername} />
                     )}
                 />
             </Switch>

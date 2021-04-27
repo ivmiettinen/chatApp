@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import chatServiceClient from '../../services/chatServiceClient'
+import { SERVER_URL } from '../../services/serviceConstants'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
-const SOCKET_SERVER_URL = 'http://localhost:3001'
 
 export const UseChat = (roomId) => {
     const [messages, setMessages] = useState([]) // Sent and received messages
@@ -11,7 +11,7 @@ export const UseChat = (roomId) => {
 
     useEffect(() => {
         // Creates a WebSocket connection
-        socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
+        socketRef.current = socketIOClient(SERVER_URL, {
             query: { roomId },
         })
 

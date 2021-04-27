@@ -5,6 +5,11 @@ const http = require('http')
 
 const cors = require('cors')
 
+const usersRouter = require('./controllers/users')
+
+const chatterArray = require('./chatterArray')
+
+
 app.use(cors())
 
 const server = http.createServer(app)
@@ -17,11 +22,9 @@ const io = require('socket.io')(server, {
 const PORT = 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
-let chatterArray = []
 
-app.get('/', (req, res) => {
-    res.json(chatterArray)
-})
+
+
 
 const getRandomColor = () => {
     const letters = '0123456789ABCDEF'
@@ -79,3 +82,8 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
 })
+
+
+app.use('/api/users', usersRouter)
+
+module.exports = app

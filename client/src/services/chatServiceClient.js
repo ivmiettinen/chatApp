@@ -1,8 +1,8 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001'
+import {SERVER_URL} from '../services/serviceConstants'
 
 const getAll = () => {
-    const request = axios.get(baseUrl)
+    const request = axios.get(`${SERVER_URL}/api/users`)
     return request.then((response) => response.data)
 }
 

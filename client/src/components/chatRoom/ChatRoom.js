@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 import './ChatRoom.css'
-import {UseChat} from './UseChat'
-import {UseChatters} from './UseChat'
+import { UseChat } from './UseChat'
+import { UseChatters } from './UseChat'
 import InputComponent from '../elements/InputComponent'
 import ButtonComponent from '../elements/ButtonComponent'
 
@@ -16,9 +16,8 @@ const ChatRoom = (props) => {
     } = props
     const { messages, sendMessage } = UseChat(roomId) // Creates a websocket and manages messaging
     const [newMessage, setNewMessage] = useState('') // Message to be sent
-    const {usernames, setUsernames} = UseChatters([])
+    const { usernames, setUsernames } = UseChatters([])
 
-    
     // console.log('NameComponent', NameComponent)
 
     const handleNewMessageChange = (event) => {
@@ -27,9 +26,13 @@ const ChatRoom = (props) => {
 
     const handleSendMessage = () => {
         sendMessage(username, newMessage)
-       
+
         setNewMessage('')
     }
+
+    // const handleUsernames = (props) => {
+    //     setUsernames(username)
+    // }
 
     return (
         <>
@@ -39,15 +42,15 @@ const ChatRoom = (props) => {
                         Please enter your username before entering the room{' '}
                         <strong>{roomId}</strong>
                     </p>
-                
-                        <InputComponent
-                            value={username}
-                            onChange={handleUsernameChange}
-                            placeholder='Name'
-                            className='text-input-field'
-                            type='text'
-                        />
-                  
+
+                    <InputComponent
+                        value={username}
+                        onChange={handleUsernameChange}
+                        placeholder='Name'
+                        className='text-input-field'
+                        type='text'
+                    />
+
                     <ButtonComponent
                         className='enter-room-button'
                         onClick={handleConfirmUsername}

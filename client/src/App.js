@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './index.css'
 import Home from './components/home/Home'
-import ChatRoom from './components/chatRoom/ChatRoom'
+import ChatRoomLobby from './components/chatRoom/ChatRoomLobby'
+import {UseChatters} from './services/chatHelperFunctions'
 
 function App() {
     const [username, setUsername] = useState('')
@@ -14,10 +15,10 @@ function App() {
     }
 
     const handleConfirmUsername = (e) => {
-      setConfirmUsername(true)
+        setConfirmUsername(true)
     }
 
-    
+    const chatters = UseChatters()
 
     return (
         <Router>
@@ -36,7 +37,14 @@ function App() {
                     exact
                     path='/:roomId'
                     render={(props) => (
-                        <ChatRoom {...props} username={username} handleUsernameChange={handleUsernameChange} confirmUsername={confirmUsername} handleConfirmUsername={handleConfirmUsername} />
+                        <ChatRoomLobby
+                            {...props}
+                            username={username}
+                            handleUsernameChange={handleUsernameChange}
+                            confirmUsername={confirmUsername}
+                            handleConfirmUsername={handleConfirmUsername}
+                            chatters={chatters}
+                        />
                     )}
                 />
             </Switch>

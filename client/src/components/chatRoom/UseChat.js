@@ -5,15 +5,16 @@ import { SERVER_URL } from '../../services/serviceConstants'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
-export const UseChat = (roomId) => {
+export const UseChat = (roomId, username, confirmUsername) => {
     const [messages, setMessages] = useState([]) // Sent and received messages
     const socketRef = useRef()
 
     useEffect(() => {
         // Creates a WebSocket connection
         socketRef.current = socketIOClient(SERVER_URL, {
-            query: { roomId },
+            query: { roomId, username: username },
         })
+
 
         // Listens for incoming messages
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
@@ -44,19 +45,3 @@ export const UseChat = (roomId) => {
     return { messages, sendMessage }
 }
 
-export const UseChatters = () => {
-    const [usernames, setUsernames] = useState([])
-
-    useEffect(() => {
-        chatServiceClient
-            .getAll()
-            .then((chatters) => {
-                setUsernames(chatters)
-            })
-            .catch((err) => {
-                console.log('error with get request', err)
-            })
-    }, [])
-
-    return usernames
-}

@@ -36,6 +36,11 @@ const getRandomColor = () => {
 }
 
 io.on('connection', (socket) => {
+
+    socket.onAny((event, ...args) => {
+        console.log("ANY", event, args);
+      });
+
     // Join a conversation
     const { roomId } = socket.handshake.query
     socket.join(roomId)
@@ -47,14 +52,16 @@ io.on('connection', (socket) => {
     const newChatter = {
         id: socket.id,
         color: getRandomColor(),
+        username: socket.handshake.query.username
     }
 
     chatterArray.push(newChatter)
 
     console.log('chatterArray when after push', chatterArray)
 
-    // console.log('socket.handshake.query', socket.handshake.query)
+    console.log('socket.handshake.query', socket.handshake.query)
     console.log('socket.handshake.query.roomId', socket.handshake.query.roomId)
+    console.log('socket.handshake.query.username', socket.handshake.query.username)
 
     // Listen for new messages
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {

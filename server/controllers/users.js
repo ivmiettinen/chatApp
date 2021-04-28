@@ -5,6 +5,7 @@ usersRouter.get('/', async (req, res, next) => {
     try {
         const users = chatterArray
         if (users) {
+            
             res.json(users.map((user) => user))
         } else {
             res.status(404).end()

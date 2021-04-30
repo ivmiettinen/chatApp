@@ -13,7 +13,7 @@ function App() {
     const [error, setError] = useState()
 
     const handleUsernameChange = (e) => {
-        console.log('handleUsernameChange', e.target.value)
+        // console.log('handleUsernameChange', e.target.value)
         setUsername(e.target.value)
     }
 
@@ -35,7 +35,7 @@ function App() {
         // }
     }
 
-    const chatters = UseChatters()
+    const chatters = UseChatters(username)
 
     const errorHandler = () => {
         setError(null)

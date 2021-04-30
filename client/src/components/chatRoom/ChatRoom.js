@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import './ChatRoom.css'
 import { UseChat } from './UseChat'
-import ButtonComponent from '../elements/ButtonComponent'
+import ButtonComponent from '../UI/ButtonComponent'
 
 const ChatRoom = ({roomId, username, confirmUsername}) => {
 

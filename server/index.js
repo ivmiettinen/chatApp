@@ -9,7 +9,6 @@ const usersRouter = require('./controllers/users')
 
 const chatterArray = require('./chatterArray')
 
-
 app.use(cors())
 
 const server = http.createServer(app)
@@ -22,10 +21,6 @@ const io = require('socket.io')(server, {
 const PORT = 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
-
-
-
-
 const getRandomColor = () => {
     const letters = '0123456789ABCDEF'
     let color = '#'
@@ -36,23 +31,16 @@ const getRandomColor = () => {
 }
 
 io.on('connection', (socket) => {
-
-    socket.onAny((event, ...args) => {
-        console.log("ANY", event, args);
-      });
-
     // Join a conversation
     const { roomId } = socket.handshake.query
     socket.join(roomId)
 
     console.log('client id - ' + socket.id)
 
-    console.log('getRandomColor', getRandomColor())
-
     const newChatter = {
         id: socket.id,
         color: getRandomColor(),
-        username: socket.handshake.query.username
+        username: socket.handshake.query.username,
     }
 
     chatterArray.push(newChatter)
@@ -61,7 +49,10 @@ io.on('connection', (socket) => {
 
     console.log('socket.handshake.query', socket.handshake.query)
     console.log('socket.handshake.query.roomId', socket.handshake.query.roomId)
-    console.log('socket.handshake.query.username', socket.handshake.query.username)
+    console.log(
+        'socket.handshake.query.username',
+        socket.handshake.query.username
+    )
 
     // Listen for new messages
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
@@ -89,7 +80,6 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
 })
-
 
 app.use('/api/users', usersRouter)
 

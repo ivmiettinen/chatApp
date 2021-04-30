@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
-import chatServiceClient from '../../services/chatServiceClient'
 import { SERVER_URL } from '../../services/serviceConstants'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
@@ -30,7 +29,7 @@ export const UseChat = (roomId, username, confirmUsername) => {
         return () => {
             socketRef.current.disconnect()
         }
-    }, [roomId])
+    }, [roomId, username])
 
     // Sends a message to the server that
     // forwards it to all users in the same room

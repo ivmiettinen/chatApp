@@ -1,6 +1,6 @@
 import React from 'react'
-import InputComponent from '../elements/InputComponent'
-import ButtonComponent from '../elements/ButtonComponent'
+import InputComponent from '../UI/InputComponent'
+import ButtonComponent from '../UI/ButtonComponent'
 import ChatRoom from './ChatRoom'
 
 const ChatRoomLobby = (props) => {

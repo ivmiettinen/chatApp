@@ -19,12 +19,20 @@ function App() {
 
     const handleConfirmUsername = (e) => {
         if (username.trim().length < 6) {
-            alert('Username must be at least 6 characters long')
-
+            setError({
+                title: 'Invalid input',
+                message: 'Username must be at least 6 characters long.',
+            })
             return
         } else {
             setConfirmUsername(true)
         }
+        // if (username.trim().length < 6) {
+        //     alert('Username must be at least 6 characters long')
+        //     return
+        // } else {
+        //     setConfirmUsername(true)
+        // }
     }
 
     const chatters = UseChatters()
@@ -34,40 +42,42 @@ function App() {
     }
 
     return (
-        <Router>
-            <Switch>
-                <Route exact path='/'>
-                    {error && (
-                        <ErrorModal
-                            title={error.title}
-                            message={error.message}
-                            onConfirm={errorHandler}
-                        />
-                    )}
-                    <Home
-                        username={username}
-                        handleUsernameChange={handleUsernameChange}
-                        confirmUsername={confirmUsername}
-                        setConfirmUsername={setConfirmUsername}
-                        handleConfirmUsername={handleConfirmUsername}
-                    />
-                </Route>
-                <Route
-                    exact
-                    path='/:roomId'
-                    render={(props) => (
-                        <ChatRoomLobby
-                            {...props}
+        <div>
+            {error && (
+                <ErrorModal
+                    title={error.title}
+                    message={error.message}
+                    onConfirm={errorHandler}
+                />
+            )}
+            <Router>
+                <Switch>
+                    <Route exact path='/'>
+                        <Home
                             username={username}
                             handleUsernameChange={handleUsernameChange}
                             confirmUsername={confirmUsername}
+                            setConfirmUsername={setConfirmUsername}
                             handleConfirmUsername={handleConfirmUsername}
-                            chatters={chatters}
                         />
-                    )}
-                />
-            </Switch>
-        </Router>
+                    </Route>
+                    <Route
+                        exact
+                        path='/:roomId'
+                        render={(props) => (
+                            <ChatRoomLobby
+                                {...props}
+                                username={username}
+                                handleUsernameChange={handleUsernameChange}
+                                confirmUsername={confirmUsername}
+                                handleConfirmUsername={handleConfirmUsername}
+                                chatters={chatters}
+                            />
+                        )}
+                    />
+                </Switch>
+            </Router>
+        </div>
     )
 }
 

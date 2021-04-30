@@ -1,30 +1,29 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import './ErrorModal.css'
+import ButtonComponent from './ButtonComponent'
 
 const Backdrop = (props) => {
-    console.log('propsaaa', props)
-    return <div onClick={props.onConfirm} />
+    return <div className='backdrop' onClick={props.onConfirm} />
 }
 
 const ModalOverLay = (props) => {
     return (
-        <div>
-            <header>
+        <div className='modal'>
+            <header className='header'>
                 <h2>{props.title}</h2>
             </header>
-            <div>
+            <div className='content'>
                 <p>{props.message}</p>
             </div>
-            <footer>
-                <button onClick={props.onConfirm}>Okay</button>
+            <footer className='actions'>
+                <ButtonComponent className='error-button' onClick={props.onConfirm}>Ok</ButtonComponent>
             </footer>
         </div>
     )
 }
 
 const ErrorModal = (props) => {
-    console.log('prosdaasps', props)
-
     return (
         <React.Fragment>
             {ReactDOM.createPortal(

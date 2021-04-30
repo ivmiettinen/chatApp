@@ -13,18 +13,11 @@ const Home = (props) => {
     const addNewChatter = (e) => {
         e.preventDefault()
 
-        if (props.username.trim().length < 6) {
-            alert('Username must be at least 6 characters long')
-            return
-        } else if (roomName.trim().length < 1) {
-            console.log('props.roomName.trim().length', roomName.trim().length)
-            alert('Room name must be at least 1 character long')
-            return
-        } else {
-            setRoomName(e.target.value)
-            props.handleConfirmUsername(true)
-            history.push(`/${roomName}`)
-        }
+        props.handleConfirmUsername()
+    }
+
+    if (props.confirmUsername) {
+        history.push(`/${roomName}`)
     }
 
     const handleRoomNameChange = (event) => {

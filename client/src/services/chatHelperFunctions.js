@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import chatServiceClient from './chatServiceClient'
 
-export const UseChatters = (newUsername) => {
+export const UseChatters = (username) => {
     // console.log('props', username)
     const [usernames, setUsernames] = useState([])
 
     useEffect(() => {
         const getUsernames = setTimeout(() => {
+            console.log('effectiii')
             chatServiceClient
                 .getAll()
                 .then((chatters) => {
@@ -18,9 +19,10 @@ export const UseChatters = (newUsername) => {
         }, 1000)
 
         return () => {
+            console.log('2clean up the timeout')
             clearTimeout(getUsernames)
         }
-    }, [newUsername])
+    }, [username])
 
     return usernames
 }

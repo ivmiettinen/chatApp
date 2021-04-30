@@ -12,30 +12,35 @@ function App() {
     const [confirmUsername, setConfirmUsername] = useState(false)
     const [error, setError] = useState()
 
+    const chatters = UseChatters(username)
+
+    const onlyUniqueUsernames = chatters
+        .map((p) => p.username)
+        .find((findName) => findName === username)
+
     const handleUsernameChange = (e) => {
         // console.log('handleUsernameChange', e.target.value)
         setUsername(e.target.value)
     }
 
     const handleConfirmUsername = (e) => {
-        if (username.trim().length < 6) {
+        if (username.trim().length < 1) {
             setError({
                 title: 'Invalid input',
-                message: 'Username must be at least 6 characters long.',
+                message: 'Username must be at least 1 characters long.',
+            })
+            return
+        }
+        if (onlyUniqueUsernames) {
+            setError({
+                title: 'Invalid input',
+                message: `Username '${username}' is already in use.`,
             })
             return
         } else {
             setConfirmUsername(true)
         }
-        // if (username.trim().length < 6) {
-        //     alert('Username must be at least 6 characters long')
-        //     return
-        // } else {
-        //     setConfirmUsername(true)
-        // }
     }
-
-    const chatters = UseChatters(username)
 
     const errorHandler = () => {
         setError(null)
@@ -59,6 +64,7 @@ function App() {
                             confirmUsername={confirmUsername}
                             setConfirmUsername={setConfirmUsername}
                             handleConfirmUsername={handleConfirmUsername}
+                            onlyUniqueUsernames={onlyUniqueUsernames}
                         />
                     </Route>
                     <Route

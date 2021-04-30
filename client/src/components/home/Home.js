@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import InputComponent from '../UI/InputComponent'
 import ButtonComponent from '../UI/ButtonComponent'
@@ -6,8 +5,6 @@ import ButtonComponent from '../UI/ButtonComponent'
 import './Home.css'
 
 const Home = (props) => {
-    const [roomName, setRoomName] = useState('')
-
     let history = useHistory()
 
     const addNewChatter = (e) => {
@@ -17,11 +14,7 @@ const Home = (props) => {
     }
 
     if (props.confirmUsername) {
-        history.push(`/${roomName}`)
-    }
-
-    const handleRoomNameChange = (event) => {
-        setRoomName(event.target.value)
+        history.push(`/${props.roomName}`)
     }
 
     return (
@@ -35,13 +28,13 @@ const Home = (props) => {
             />
             <InputComponent
                 type='text'
-                value={roomName}
-                onChange={handleRoomNameChange}
+                value={props.roomName}
+                onChange={props.handleRoomNameChange}
                 placeholder='Room'
                 className='text-input-field'
             />
             <ButtonComponent
-                to={`/${roomName}`}
+                to={`/${props.roomName}`}
                 className='enter-room-button'
                 onClick={addNewChatter}
             >

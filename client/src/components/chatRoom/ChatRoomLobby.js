@@ -12,7 +12,13 @@ const ChatRoomLobby = (props) => {
         handleConfirmUsername,
         handleUsernameChange,
         username,
+        handleRoomNameChange
     } = props
+
+    const handleUrlConfirmUsername = (roomId) => {
+        handleRoomNameChange(roomId)
+        handleConfirmUsername()
+    }
 
     return (
         <>
@@ -32,8 +38,9 @@ const ChatRoomLobby = (props) => {
                     />
 
                     <ButtonComponent
+                        value={roomId}
                         className='enter-room-button'
-                        onClick={handleConfirmUsername}
+                        onClick={handleUrlConfirmUsername}
                     >
                         Enter
                     </ButtonComponent>

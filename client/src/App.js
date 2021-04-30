@@ -10,9 +10,14 @@ import ErrorModal from './components/UI/ErrorModal'
 function App() {
     const [username, setUsername] = useState('')
     const [confirmUsername, setConfirmUsername] = useState(false)
+    const [roomName, setRoomName] = useState('')
     const [error, setError] = useState()
 
-    const chatters = UseChatters(username)
+    const handleRoomNameChange = (event) => {
+        setRoomName(event.target.value)
+    }
+
+    const chatters = UseChatters(confirmUsername)
 
     const onlyUniqueUsernames = chatters
         .map((p) => p.username)
@@ -23,6 +28,10 @@ function App() {
         setUsername(e.target.value)
     }
 
+    //
+        
+    //
+
     const handleConfirmUsername = (e) => {
         if (username.trim().length < 1) {
             setError({
@@ -30,14 +39,21 @@ function App() {
                 message: 'Username must be at least 1 characters long.',
             })
             return
-        }
-        if (onlyUniqueUsernames) {
+        } else if (onlyUniqueUsernames) {
             setError({
                 title: 'Invalid input',
                 message: `Username '${username}' is already in use.`,
             })
             return
-        } else {
+        } 
+        else if (roomName.trim().length < 1) {
+            // console.log('props.roomName.trim().length', roomName.trim().length)
+            setError({
+                title: 'Invalid input',
+                message: 'Room name must be at least 1 character long',
+            })
+        } 
+        else {
             setConfirmUsername(true)
         }
     }
@@ -65,6 +81,8 @@ function App() {
                             setConfirmUsername={setConfirmUsername}
                             handleConfirmUsername={handleConfirmUsername}
                             onlyUniqueUsernames={onlyUniqueUsernames}
+                            handleRoomNameChange={handleRoomNameChange}
+                            roomName={roomName}
                         />
                     </Route>
                     <Route
@@ -78,6 +96,7 @@ function App() {
                                 confirmUsername={confirmUsername}
                                 handleConfirmUsername={handleConfirmUsername}
                                 chatters={chatters}
+                                handleRoomNameChange={handleRoomNameChange}
                             />
                         )}
                     />

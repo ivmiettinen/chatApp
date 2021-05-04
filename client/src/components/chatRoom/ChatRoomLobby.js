@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import InputComponent from '../UI/InputComponent'
 import ButtonComponent from '../UI/ButtonComponent'
 import ChatRoom from './ChatRoom'
+import './ChatRoomLobby.css'
 
 const ChatRoomLobby = (props) => {
     // console.log('ChatRoomLobby', props)
@@ -12,19 +13,23 @@ const ChatRoomLobby = (props) => {
         handleConfirmUsername,
         handleUsernameChange,
         username,
-        handleRoomNameChange
+        handleRoomNameChangeWithLink,
     } = props
 
     const handleUrlConfirmUsername = (roomId) => {
-        handleRoomNameChange(roomId)
         handleConfirmUsername()
     }
+
+    useEffect(() => {
+        handleRoomNameChangeWithLink(roomId)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
             {confirmUsername === false ? (
                 <div className='chat-lobby-container'>
-                    <p>
+                    <p className='text-input-field'>
                         Please enter your username before entering the room{' '}
                         <strong>{roomId}</strong>
                     </p>
@@ -36,9 +41,7 @@ const ChatRoomLobby = (props) => {
                         className='text-input-field'
                         type='text'
                     />
-
                     <ButtonComponent
-                        value={roomId}
                         className='enter-room-button'
                         onClick={handleUrlConfirmUsername}
                     >

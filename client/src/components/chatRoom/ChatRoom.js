@@ -16,14 +16,12 @@ const ChatRoom = ({roomId, username, confirmUsername}) => {
     
     // Creates a websocket and manages messaging
 
-
     const handleNewMessageChange = (event) => {
         setNewMessage(event.target.value)
     }
 
     const handleSendMessage = () => {
         sendMessage(username, newMessage)
-
         setNewMessage('')
     }
 

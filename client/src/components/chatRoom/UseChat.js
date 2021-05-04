@@ -4,7 +4,7 @@ import { SERVER_URL } from '../../services/serviceConstants'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
-export const UseChat = (roomId, username, confirmUsername) => {
+export const UseChat = (roomId, username) => {
     const [messages, setMessages] = useState([]) // Sent and received messages
     const socketRef = useRef()
 

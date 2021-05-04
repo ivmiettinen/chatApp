@@ -45,14 +45,14 @@ io.on('connection', (socket) => {
 
     chatterArray.push(newChatter)
 
-    console.log('chatterArray when after push', chatterArray)
+    console.log('chatterArray after push', chatterArray)
 
     console.log('socket.handshake.query', socket.handshake.query)
-    console.log('socket.handshake.query.roomId', socket.handshake.query.roomId)
-    console.log(
-        'socket.handshake.query.username',
-        socket.handshake.query.username
-    )
+    // console.log('socket.handshake.query.roomId', socket.handshake.query.roomId)
+    // console.log(
+    //     'socket.handshake.query.username',
+    //     socket.handshake.query.username
+    // )
 
     // Listen for new messages
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {

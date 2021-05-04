@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
 import './index.css'
 import Home from './components/home/Home'
 import ChatRoomLobby from './components/chatRoom/ChatRoomLobby'
@@ -17,6 +16,11 @@ function App() {
         setRoomName(event.target.value)
     }
 
+    const handleRoomNameChangeWithLink = (event) => {
+        // console.log('handleRoomNameChange', event)
+        setRoomName(event)
+    }
+
     const chatters = UseChatters(confirmUsername)
 
     const onlyUniqueUsernames = chatters
@@ -24,13 +28,8 @@ function App() {
         .find((findName) => findName === username)
 
     const handleUsernameChange = (e) => {
-        // console.log('handleUsernameChange', e.target.value)
         setUsername(e.target.value)
     }
-
-    //
-        
-    //
 
     const handleConfirmUsername = (e) => {
         if (username.trim().length < 1) {
@@ -45,15 +44,12 @@ function App() {
                 message: `Username '${username}' is already in use.`,
             })
             return
-        } 
-        else if (roomName.trim().length < 1) {
-            // console.log('props.roomName.trim().length', roomName.trim().length)
+        } else if (roomName.trim().length < 1) {
             setError({
                 title: 'Invalid input',
                 message: 'Room name must be at least 1 character long',
             })
-        } 
-        else {
+        } else {
             setConfirmUsername(true)
         }
     }
@@ -96,7 +92,9 @@ function App() {
                                 confirmUsername={confirmUsername}
                                 handleConfirmUsername={handleConfirmUsername}
                                 chatters={chatters}
-                                handleRoomNameChange={handleRoomNameChange}
+                                handleRoomNameChangeWithLink={
+                                    handleRoomNameChangeWithLink
+                                }
                             />
                         )}
                     />

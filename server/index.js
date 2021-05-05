@@ -9,6 +9,9 @@ const usersRouter = require('./controllers/users')
 
 const chatterArray = require('./chatterArray')
 
+const randomColor = require('randomcolor')
+
+
 app.use(cors())
 
 const server = http.createServer(app)
@@ -21,16 +24,6 @@ const io = require('socket.io')(server, {
 const PORT = 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
-//create backgroundcolor for chatter:
-const getRandomColor = () => {
-    const letters = '0123456789ABCDEF'
-    let color = '#'
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)]
-    }
-    return color
-}
-
 io.on('connection', (socket) => {
     // Join a conversation
     const { roomId } = socket.handshake.query
@@ -41,7 +34,7 @@ io.on('connection', (socket) => {
 
     const newChatter = {
         id: socket.id,
-        color: getRandomColor(),
+        color: randomColor(),
         username: socket.handshake.query.username,
     }
 

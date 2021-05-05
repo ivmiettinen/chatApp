@@ -4,8 +4,11 @@ import { SERVER_URL } from '../../services/serviceConstants'
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
 
+// const USER_DISCONNECT_MESSAGE = 'userDisconnectMessage'
+
 export const UseChat = (roomId, username) => {
     const [messages, setMessages] = useState([]) // Sent and received messages
+    // const [userDisconnect, setUserDisconnect] = useState([])
     const socketRef = useRef()
 
     useEffect(() => {
@@ -14,9 +17,9 @@ export const UseChat = (roomId, username) => {
             query: { roomId, username: username },
         })
 
-
         // Listens for incoming messages
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
+            console.log('NEW_CHAT_MESSAGE_EVENT messageeeee', message)
             const incomingMessage = {
                 ...message,
                 ownedByCurrentUser: message.senderId === socketRef.current.id,
@@ -43,4 +46,3 @@ export const UseChat = (roomId, username) => {
 
     return { messages, sendMessage }
 }
-

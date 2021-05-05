@@ -11,7 +11,6 @@ const chatterArray = require('./chatterArray')
 
 const randomColor = require('randomcolor')
 
-
 app.use(cors())
 
 const server = http.createServer(app)
@@ -43,6 +42,7 @@ io.on('connection', (socket) => {
     console.log('chatterArray after connection & push', chatterArray)
 
     // Listen for new messages
+
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
         console.log('NEW_CHAT_MESSAGE_EVENT', data)
 
@@ -56,6 +56,10 @@ io.on('connection', (socket) => {
     // Leave the room if the user closes the socket
     socket.on('disconnect', () => {
         console.log('disconnect', roomId)
+
+        io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, {
+            disconnect: chatterArray.find(findId).username,
+        })
 
         const actualIndex = chatterArray.findIndex(findId)
 

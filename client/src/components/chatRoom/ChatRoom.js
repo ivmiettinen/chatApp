@@ -7,7 +7,11 @@ import ButtonComponent from '../UI/ButtonComponent'
 const ChatRoom = ({ roomId, username, confirmUsername }) => {
     const [newMessage, setNewMessage] = useState('') // Message to be sent
 
-    const { messages, sendMessage } = UseChat(roomId, username, confirmUsername)
+    const { messages, sendMessage } = UseChat(
+        roomId,
+        username,
+        confirmUsername
+    )
 
     // Creates a websocket and manages messaging
 
@@ -19,8 +23,6 @@ const ChatRoom = ({ roomId, username, confirmUsername }) => {
         sendMessage(username, newMessage)
         setNewMessage('')
     }
-
-    console.log('messages', messages)
 
     return (
         <>
@@ -40,8 +42,18 @@ const ChatRoom = ({ roomId, username, confirmUsername }) => {
                                     backgroundColor: `${message.color}`,
                                 }}
                             >
-                                <strong>{message.username}:</strong>{' '}
-                                {message.body}
+                                {message.disconnect ? (
+                                  <p className='leave-chatroom'>  <strong >{message.disconnect} </strong> left the chat room</p>
+                                ) : (
+                                    <p>
+                                        {' '}
+                                        <strong>
+                                            {message.username}:
+                                        </strong>{' '}
+                                        {message.body}
+                                    </p>
+                                )}{' '}
+
                             </li>
                         ))}
                     </ol>

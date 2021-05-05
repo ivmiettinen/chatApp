@@ -21,6 +21,7 @@ const io = require('socket.io')(server, {
 const PORT = 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
+//create backgroundcolor for chatter:
 const getRandomColor = () => {
     const letters = '0123456789ABCDEF'
     let color = '#'
@@ -35,7 +36,8 @@ io.on('connection', (socket) => {
     const { roomId } = socket.handshake.query
     socket.join(roomId)
 
-    console.log('client id - ' + socket.id)
+    //find chatter with id:
+    const findId = (element) => element.id === socket.id
 
     const newChatter = {
         id: socket.id,
@@ -45,18 +47,15 @@ io.on('connection', (socket) => {
 
     chatterArray.push(newChatter)
 
-    console.log('chatterArray after push', chatterArray)
-
-    console.log('socket.handshake.query', socket.handshake.query)
-    // console.log('socket.handshake.query.roomId', socket.handshake.query.roomId)
-    // console.log(
-    //     'socket.handshake.query.username',
-    //     socket.handshake.query.username
-    // )
+    console.log('chatterArray after connection & push', chatterArray)
 
     // Listen for new messages
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
         console.log('NEW_CHAT_MESSAGE_EVENT', data)
+
+        const oneId = chatterArray.find(findId)
+
+        Object.assign(data, { color: oneId.color })
 
         io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data)
     })
@@ -64,8 +63,6 @@ io.on('connection', (socket) => {
     // Leave the room if the user closes the socket
     socket.on('disconnect', () => {
         console.log('disconnect', roomId)
-
-        const findId = (element) => element.id === socket.id
 
         const actualIndex = chatterArray.findIndex(findId)
 

@@ -6,6 +6,8 @@ export const UseChatters = (confirmUsername) => {
     const [usernames, setUsernames] = useState([])
 
     useEffect(() => {
+        
+
         const getUsernames = setTimeout(() => {
             chatServiceClient
                 .getAll()

@@ -24,12 +24,20 @@ const PORT = 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
 io.on('connection', (socket) => {
+
+
+
+
     // Join a conversation
     const { roomId } = socket.handshake.query
     socket.join(roomId)
 
+
+    
+
     //find chatter with id:
     const findId = (element) => element.id === socket.id
+    
 
     const newChatter = {
         id: socket.id,
@@ -38,6 +46,11 @@ io.on('connection', (socket) => {
     }
 
     chatterArray.push(newChatter)
+
+    //Emit 'New user connected' message to chat room
+    socket.to(roomId).emit(NEW_CHAT_MESSAGE_EVENT, {
+        connected: chatterArray.find(findId).username,
+    })
 
     console.log('chatterArray after connection & push', chatterArray)
 
@@ -62,6 +75,8 @@ io.on('connection', (socket) => {
         })
 
         const actualIndex = chatterArray.findIndex(findId)
+
+        
 
         chatterArray.splice(actualIndex, 1)
 

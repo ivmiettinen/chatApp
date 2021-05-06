@@ -54,18 +54,27 @@
     color: black;
 }
 
+.received-message {
+    background-color: #3f4042;
+    margin-right: auto;
+    
+}
+
 .leave-chatroom {
     color: rgb(219, 214, 214);
+    width: 100%;
+}
+
+.connect-chatroom {
+    color: rgb(101, 184, 93);
+    width: 100%;
 }
 
 .my-message {
     margin-left: auto;
 }
 
-.received-message {
-    background-color: #3f4042;
-    margin-right: auto;
-}
+
 
 .send-message-button {
     font-size: 28px;

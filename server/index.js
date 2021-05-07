@@ -26,7 +26,7 @@ const io = require('socket.io')(server, {
     },
 })
 
-const PORT = 3001
+const PORT = process.env.port || 3001
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
 io.on('connection', (socket) => {

@@ -1,6 +1,12 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
+
+
+////////
+
 const http = require('http')
 
 const cors = require('cors')
@@ -27,9 +33,9 @@ io.on('connection', (socket) => {
 
 
 
-
+console.log('socket.handshake.query', socket.handshake.query)
     // Join a conversation
-    const { roomId } = socket.handshake.query
+    const { roomId, username } = socket.handshake.query
     socket.join(roomId)
 
 
@@ -42,12 +48,12 @@ io.on('connection', (socket) => {
     const newChatter = {
         id: socket.id,
         color: randomColor(),
-        username: socket.handshake.query.username,
+        username: username,
     }
 
     chatterArray.push(newChatter)
 
-    //Emit 'New user connected' message to chat room
+    //Emit 'New user connected' message to chat room everyone expect sender
     socket.to(roomId).emit(NEW_CHAT_MESSAGE_EVENT, {
         connected: chatterArray.find(findId).username,
     })

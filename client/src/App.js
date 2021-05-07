@@ -5,23 +5,23 @@ import Home from './components/home/Home'
 import ChatRoomLobby from './components/chatRoom/ChatRoomLobby'
 import { UseChatters } from './services/chatHelperFunctions'
 import ErrorModal from './components/UI/ErrorModal'
+import chatServiceClient from './services/chatServiceClient'
 
 function App() {
     const [username, setUsername] = useState('')
     const [confirmUsername, setConfirmUsername] = useState(false)
     const [roomName, setRoomName] = useState('')
-    const [error, setError] = useState()
+    const [error, setError] = useState(null)
 
-    const handleRoomNameChange = (event) => {
-        setRoomName(event.target.value)
+    const handleRoomNameChange = (e) => {
+        setRoomName(e.target.value)
     }
 
-    const handleRoomNameChangeWithLink = (event) => {
-        // console.log('handleRoomNameChange', event)
-        setRoomName(event)
+    const handleRoomNameChangeWithLink = (e) => {
+        setRoomName(e)
     }
 
-    const chatters = UseChatters(confirmUsername)
+    const chatters = UseChatters(username)
 
     const onlyUniqueUsernames = chatters
         .map((p) => p.username)
@@ -50,7 +50,25 @@ function App() {
                 message: 'Room name must be at least 1 character long',
             })
         } else {
-            setConfirmUsername(true)
+            const personObject = {
+                username: username,
+            }
+
+            chatServiceClient
+                .create(personObject)
+                .then((res) => {
+                    setUsername(res.person.username)
+                    setConfirmUsername(true)
+                })
+
+                .catch((err) => {
+                    console.log('error with get request', err)
+                    setError({
+                        title: 'Invalid input',
+                        message: `Username '${username}' is already in use.`,
+                    })
+                    setConfirmUsername(false)
+                })
         }
     }
 

@@ -7,6 +7,11 @@ const getAll = () => {
     return request.then((response) => response.data)
 }
 
-const helpers = {getAll}
+const create = (newObject) => {
+    const request = axios.post(`${SERVER_URL}/api/users`, newObject);
+    return request.then((response) => response.data);
+  };
+
+const helpers = {getAll, create}
 
 export default helpers

@@ -3,7 +3,7 @@ const app = express()
 
 app.use(express.json())
 
-
+const moment = require('moment');
 
 ////////
 
@@ -31,9 +31,8 @@ const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
 io.on('connection', (socket) => {
 
+// console.log('socket.handshake.query', socket.handshake.query)
 
-
-console.log('socket.handshake.query', socket.handshake.query)
     // Join a conversation
     const { roomId, username } = socket.handshake.query
     socket.join(roomId)
@@ -65,9 +64,11 @@ console.log('socket.handshake.query', socket.handshake.query)
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
         console.log('NEW_CHAT_MESSAGE_EVENT', data)
 
+        console.log('MOMENT', moment().format('h:mm a') )
+
         const oneId = chatterArray.find(findId)
 
-        Object.assign(data, { color: oneId.color })
+        Object.assign(data, { color: oneId.color }, {time: moment().format('h:mm a')})
 
         io.in(roomId).emit(NEW_CHAT_MESSAGE_EVENT, data)
     })

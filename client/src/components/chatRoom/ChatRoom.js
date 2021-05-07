@@ -40,29 +40,29 @@ const ChatRoom = ({ roomId, username }) => {
                             >
                                 {message.disconnect ? (
                                     <p className='leave-chatroom'>
-                                        {' '}
+                                        
                                         <strong>
                                             {message.disconnect}{' '}
-                                        </strong>{' '}
+                                        </strong>
                                         left the chat room
                                     </p>
                                 ) : message.connected ? (
                                     <p className='connect-chatroom'>
-                                        {' '}
+                                        
                                         <strong>
-                                            {message.connected}
-                                        </strong>{' '}
+                                            {message.connected}{' '}
+                                        </strong>
                                         connected to the chat room
                                     </p>
                                 ) : (
                                     <p>
-                                        {' '}
+                                        
                                         <strong>
-                                            {message.username}:
-                                        </strong>{' '}
+                                            {message.username}:{' '}
+                                        </strong>
                                         {message.body}
                                     </p>
-                                )}{' '}
+                                )}<p className='time-chatroom'>{message.time}</p>
                             </li>
                         ))}
                     </ol>

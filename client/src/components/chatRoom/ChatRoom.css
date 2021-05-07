@@ -14,7 +14,6 @@
     left: 10%;
     right: 10%;
 
-
     display: flex;
     flex-direction: column;
     margin: 16px;
@@ -52,12 +51,12 @@
     word-break: break-word;
     border-radius: 4px;
     color: black;
+    position: relative;
 }
 
 .received-message {
     background-color: #3f4042;
     margin-right: auto;
-    
 }
 
 .leave-chatroom {
@@ -85,6 +84,16 @@
     border: none;
 }
 
-.messages-container, .new-message-input-field, .send-message-button {
+.messages-container,
+.new-message-input-field,
+.send-message-button {
     border-color: #9a9a9a;
+}
+
+.time-chatroom {
+    position: absolute;
+    bottom: 2px;
+    right: 12px;
+    font-size: 16px;
+    color: rgb(121, 117, 117)
 }

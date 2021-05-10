@@ -34,35 +34,32 @@ const ChatRoom = ({ roomId, username }) => {
                                         ? 'my-message'
                                         : 'received-message'
                                 }`}
-                                style={{
-                                    backgroundColor: `${message.color}`,
-                                }}
                             >
                                 {message.disconnect ? (
                                     <p className='leave-chatroom'>
-                                        
-                                        <strong>
-                                            {message.disconnect}{' '}
-                                        </strong>
+                                        <strong>{message.disconnect} </strong>
                                         left the chat room
                                     </p>
                                 ) : message.connected ? (
                                     <p className='connect-chatroom'>
-                                        
-                                        <strong>
-                                            {message.connected}{' '}
-                                        </strong>
+                                        <strong>{message.connected} </strong>
                                         connected to the chat room
                                     </p>
                                 ) : (
-                                    <p>
-                                        
-                                        <strong>
+                                    <>
+                                        <strong
+                                            style={{
+                                                color: `${message.color}`,
+                                            }}
+                                        >
                                             {message.username}:{' '}
                                         </strong>
+                                        <p>
                                         {message.body}
-                                    </p>
-                                )}<p className='time-chatroom'>{message.time}</p>
+                                        </p>
+                                    </>
+                                )}
+                                <p className='time-chatroom'>{message.time}</p>
                             </li>
                         ))}
                     </ol>

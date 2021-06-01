@@ -6,6 +6,7 @@ import ChatRoomLobby from './components/chatRoom/ChatRoomLobby'
 import { UseChatters } from './services/chatHelperFunctions'
 import ErrorModal from './components/UI/ErrorModal'
 import chatServiceClient from './services/chatServiceClient'
+import Header from './components/layout/Header'
 
 function App() {
     const [username, setUsername] = useState('')
@@ -78,6 +79,7 @@ function App() {
 
     return (
         <div>
+            {!confirmUsername && <Header />}
             {error && (
                 <ErrorModal
                     title={error.title}
@@ -109,7 +111,6 @@ function App() {
                                 handleUsernameChange={handleUsernameChange}
                                 confirmUsername={confirmUsername}
                                 handleConfirmUsername={handleConfirmUsername}
-                                chatters={chatters}
                                 handleRoomNameChangeWithLink={
                                     handleRoomNameChangeWithLink
                                 }

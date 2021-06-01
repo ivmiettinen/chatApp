@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import chatServiceClient from './chatServiceClient'
 
 export const UseChatters = (username) => {
-    // console.log('props', confirmUsername)
     const [usernames, setUsernames] = useState([])
 
     useEffect(() => {

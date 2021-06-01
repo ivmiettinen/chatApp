@@ -48,6 +48,7 @@ io.on('connection', (socket) => {
     //Emit 'New user connected' message to chat room everyone expect sender
     socket.to(roomId).emit(NEW_CHAT_MESSAGE_EVENT, {
         connected: chatterArray.find(findId).username,
+        chatterArray: chatterArray
     })
 
     console.log('chatterArray after connection & push', chatterArray)

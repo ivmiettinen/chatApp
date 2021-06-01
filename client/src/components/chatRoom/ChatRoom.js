@@ -9,6 +9,7 @@ const ChatRoom = ({ roomId, username }) => {
 
     const { messages, sendMessage } = UseChat(roomId, username)
 
+
     // Creates a websocket and manages messaging
 
     const handleNewMessageChange = (event) => {

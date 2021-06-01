@@ -23,6 +23,7 @@
 
 .room-name {
     margin-top: 0;
+    text-align: left;
 }
 
 .messages-container {
@@ -31,6 +32,7 @@
     overflow: auto;
     border: 1px solid black;
     border-radius: 7px 7px 0 0;
+    background-color: rgb(200, 189, 200);
 }
 
 .messages-list {
@@ -62,8 +64,9 @@
 }
 
 .leave-chatroom {
-    color: rgb(219, 214, 214);
+    color: rgb(58, 57, 57);
     width: 100%;
+    font-style: italic;
 }
 
 .connect-chatroom {

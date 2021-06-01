@@ -1,6 +1,4 @@
 const InputComponent = (props) => {
-
-   
     return (
         <input
             type={props.type}

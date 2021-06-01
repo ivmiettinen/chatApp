@@ -17,7 +17,12 @@ const ModalOverLay = (props) => {
                 <p>{props.message}</p>
             </div>
             <footer className='actions'>
-                <ButtonComponent className='error-button' onClick={props.onConfirm}>Ok</ButtonComponent>
+                <ButtonComponent
+                    className='error-button'
+                    onClick={props.onConfirm}
+                >
+                    Ok
+                </ButtonComponent>
             </footer>
         </div>
     )

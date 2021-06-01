@@ -1,0 +1,47 @@
+.header {
+    display: flex;
+    flex: 1 1 0px;
+    background-color: #ded4e2;
+    
+  }
+
+  .header > div{
+
+    margin: auto;
+    width: 50%;
+  }
+  
+  .chatIconDiv {
+
+    
+    text-align: right;
+    padding: 4px;
+  }
+  .chatAppDiv {
+    flex-grow: 1;
+    font-size: 45px;
+    text-align: left;
+    margin: auto;
+    padding: 4px;
+  }
+
+  @media (max-width: 350px) {
+    .chatAppDiv {
+
+        font-size: 32px;
+        text-align: center;
+      }
+      .header {
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+      }
+
+  }
+  /* @media (max-width: 280px) {
+    .chatAppDiv {
+
+        font-size: 12px;
+
+      }
+  } */

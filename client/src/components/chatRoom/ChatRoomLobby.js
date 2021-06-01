@@ -5,8 +5,6 @@ import ChatRoom from './ChatRoom'
 import './ChatRoomLobby.css'
 
 const ChatRoomLobby = (props) => {
-    // console.log('ChatRoomLobby', props)
-
     const { roomId } = props.match.params
     const {
         confirmUsername,
@@ -15,14 +13,16 @@ const ChatRoomLobby = (props) => {
         username,
         handleRoomNameChangeWithLink,
     } = props
+    
 
-    const handleUrlConfirmUsername = (roomId) => {
+    const handleUrlConfirmUsername = () => {
         handleConfirmUsername()
     }
 
     useEffect(() => {
+        console.log('roomid', roomId)
         handleRoomNameChangeWithLink(roomId)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

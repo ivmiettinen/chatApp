@@ -78,7 +78,7 @@ function App() {
     }
 
     return (
-        <div>
+        <>
             {!confirmUsername && <Header />}
             {error && (
                 <ErrorModal
@@ -119,7 +119,7 @@ function App() {
                     />
                 </Switch>
             </Router>
-        </div>
+        </>
     )
 }
 

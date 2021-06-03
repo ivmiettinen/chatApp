@@ -2,13 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import socketIOClient from 'socket.io-client'
 import { SERVER_URL } from '../../services/serviceConstants'
 
-const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage' // Name of the event
-
-// const USER_DISCONNECT_MESSAGE = 'userDisconnectMessage'
+const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage'
 
 export const UseChat = (roomId, username) => {
     const [messages, setMessages] = useState([]) // Sent and received messages
-    // const [userDisconnect, setUserDisconnect] = useState([])
     const socketRef = useRef()
 
     useEffect(() => {
@@ -19,7 +16,6 @@ export const UseChat = (roomId, username) => {
 
         // Listens for incoming messages
         socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
-            console.log('NEW_CHAT_MESSAGE_EVENT', message)
             const incomingMessage = {
                 ...message,
                 ownedByCurrentUser: message.senderId === socketRef.current.id,

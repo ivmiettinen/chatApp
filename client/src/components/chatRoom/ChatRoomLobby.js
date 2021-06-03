@@ -20,7 +20,6 @@ const ChatRoomLobby = (props) => {
     }
 
     useEffect(() => {
-        console.log('roomid', roomId)
         handleRoomNameChangeWithLink(roomId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

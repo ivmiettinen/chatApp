@@ -5,14 +5,15 @@ import './Header.css'
 const Header = () => {
     return (
         <>
-            <div class='header'>
-                <div class='chatIconDiv'>
+            <div className='header'>
+                <div className='chatIconDiv'>
                     <ChatIcon style={{ fontSize: 140 }}></ChatIcon>
                 </div>
-                <div class='chatAppDiv'>chatApp</div>
+                <div className='chatAppDiv'>chatApp</div>
             </div>
         </>
     )
 }
 
 export default Header
+

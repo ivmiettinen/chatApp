@@ -1,6 +1,6 @@
 import { useState } from 'react'
-
 import './ChatRoom.css'
+import ChatIcon from '@material-ui/icons/Chat'
 import { UseChat } from './UseChat'
 import ButtonComponent from '../UI/ButtonComponent'
 
@@ -8,7 +8,6 @@ const ChatRoom = ({ roomId, username }) => {
     const [newMessage, setNewMessage] = useState('') // Message to be sent
 
     const { messages, sendMessage } = UseChat(roomId, username)
-
 
     // Creates a websocket and manages messaging
 
@@ -24,7 +23,18 @@ const ChatRoom = ({ roomId, username }) => {
     return (
         <>
             <div className='chat-room-container'>
-                <h1 className='room-name'>Room: {roomId}</h1>
+                <div className='chatroomHeader'>
+                    <h1 className='room-name'>Room: {roomId}</h1>
+                    <div className='chatIconDiv1'></div>
+
+                    <div className='chatLogoDiv'>
+                        <span>
+                            <ChatIcon style={{ fontSize: 40 }}></ChatIcon>
+                        </span>
+                        chatApp
+                    </div>
+                </div>
+
                 <div className='messages-container'>
                     <ol className='messages-list'>
                         {messages.map((message, i) => (
@@ -55,9 +65,7 @@ const ChatRoom = ({ roomId, username }) => {
                                         >
                                             {message.username}:{' '}
                                         </strong>
-                                        <p>
-                                        {message.body}
-                                        </p>
+                                        <p>{message.body}</p>
                                     </>
                                 )}
                                 <p className='time-chatroom'>{message.time}</p>

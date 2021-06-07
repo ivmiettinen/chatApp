@@ -1,10 +1,12 @@
 # ChatApp
 
-###### AWS live version: 
+Application for chatting. Choose a name and a chat room, sit back and how a conversation with your friends.
+
+## AWS live version: 
 http://s3-chatapp-front.s3-website.us-east-2.amazonaws.com/
 
 
-###### How to run the project:
+## How to run the project:
 
 1.Clone the project. Run npm install in both folders to install all dependencies.
 

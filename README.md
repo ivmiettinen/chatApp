@@ -3,9 +3,6 @@
 Application for chatting. Choose a name and a chat room. Copy and Paste the url to your friend.
 Then just sit back and how a conversation with your old chap.
 
-## Netlify live version: 
-https://chat-app-6eb204.netlify.app/
-
 
 ## How to run the project:
 
